@@ -1,6 +1,6 @@
 {
   "name": "kysely-planetscale",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Kysely dialect for PlanetScale Serverless",
   "repository": "https://github.com/depot/kysely-planetscale.git",
   "homepage": "https://github.com/depot/kysely-planetscale",
