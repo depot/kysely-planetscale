@@ -18,6 +18,6 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
+      - run: pnpm fmt:check
       - run: pnpm type-check
       - run: pnpm build
