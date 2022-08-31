@@ -1,11 +1,10 @@
 # kysely-planetscale
 
 [![CI](https://github.com/depot/kysely-planetscale/actions/workflows/ci.yml/badge.svg)](https://github.com/depot/kysely-planetscale/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/dm/kysely-planetscale.svg)](https://www.npmjs.com/package/kysely-planetscale)
 [![npm](https://img.shields.io/npm/v/kysely-planetscale.svg)](https://www.npmjs.com/package/kysely-planetscale)
 ![Powered by TypeScript](https://img.shields.io/badge/powered%20by-typescript-blue.svg)
 
-A Kysely dialect for [PlanetScale](https://planetscale.com/), using the [PlanetScale serverless driver for JavaScript](https://planetscale.com/blog/introducing-the-planetscale-serverless-driver-for-javascript).
+A [Kysely](https://github.com/koskimas/kysely) dialect for [PlanetScale](https://planetscale.com/), using the [PlanetScale serverless driver for JavaScript](https://planetscale.com/blog/introducing-the-planetscale-serverless-driver-for-javascript).
 
 ## Installation
 
