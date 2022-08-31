@@ -1,12 +1,13 @@
 {
   "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
-    "noEmit": true,
+    "rootDir": "src",
+    "outDir": "dist",
     "alwaysStrict": true,
     "skipLibCheck": true,
     "strict": true,
     "preserveConstEnums": true,
-    "sourceMap": true
+    "declaration": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "test"]
