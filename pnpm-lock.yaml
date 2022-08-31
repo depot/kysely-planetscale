@@ -1,0 +1,85 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@planetscale/database': ^1.3.0
+  '@tsconfig/node14': ^1.0.3
+  '@types/node': ^16
+  date-fns: ^2.29.2
+  kysely: ^0.21.5
+  prettier: ^2.7.1
+  prettier-plugin-organize-imports: ^3.1.0
+  prettier-plugin-pkg: ^0.17.1
+  typescript: ^4.8.2
+
+dependencies:
+  date-fns: 2.29.2
+
+devDependencies:
+  '@planetscale/database': 1.3.0
+  '@tsconfig/node14': 1.0.3
+  '@types/node': 16.11.19
+  kysely: 0.21.5
+  prettier: 2.7.1
+  prettier-plugin-organize-imports: 3.1.0_3izbkkkilozjwunt7rvlqzc6b4
+  prettier-plugin-pkg: 0.17.1_prettier@2.7.1
+  typescript: 4.8.2
+
+packages:
+
+  /@planetscale/database/1.3.0:
+    resolution: {integrity: sha512-NtXhNxuniCajVyQrDIap8m7tVF+SNdIiUA9JSoxR8gGYWyuqasT5BzHHMxBz1sR4icWZW5XIRYZuQcX0TzzjUw==}
+    engines: {node: '>=16'}
+    dev: true
+
+  /@tsconfig/node14/1.0.3:
+    resolution: {integrity: sha512-ysT8mhdixWK6Hw3i1V2AeRqZ5WfXg1G43mqoYlM2nc6388Fq5jcXyr5mRsqViLx/GJYdoL0bfXD8nmF+Zn/Iow==}
+    dev: true
+
+  /@types/node/16.11.19:
+    resolution: {integrity: sha512-BPAcfDPoHlRQNKktbsbnpACGdypPFBuX4xQlsWDE7B8XXcfII+SpOLay3/qZmCLb39kV5S1RTYwXdkx2lwLYng==}
+    dev: true
+
+  /date-fns/2.29.2:
+    resolution: {integrity: sha512-0VNbwmWJDS/G3ySwFSJA3ayhbURMTJLtwM2DTxf9CWondCnh6DTNlO9JgRSq6ibf4eD0lfMJNBxUdEAHHix+bA==}
+    engines: {node: '>=0.11'}
+    dev: false
+
+  /kysely/0.21.5:
+    resolution: {integrity: sha512-a/j57I2pJzdzk5HJ4Tf6PHQTf0+V0gkg/tK178OpCcxZ1kbzzhRpycVqnPTm8WRqf1w7iCPc/IrCBFkOwSwwRw==}
+    engines: {node: '>=14.0.0'}
+    dev: true
+
+  /prettier-plugin-organize-imports/3.1.0_3izbkkkilozjwunt7rvlqzc6b4:
+    resolution: {integrity: sha512-eufD78FKdkDTyyY9oKxuwEMrfz4/AXrGeyeyjqiRtSBr01DAdGFTq4SgIKvLeqlLkq+ZPJ2H0+BK0e6flRUwJQ==}
+    peerDependencies:
+      '@volar/vue-typescript': '>=0.39.0'
+      prettier: '>=2.0'
+      typescript: '>=2.9'
+    peerDependenciesMeta:
+      '@volar/vue-typescript':
+        optional: true
+    dependencies:
+      prettier: 2.7.1
+      typescript: 4.8.2
+    dev: true
+
+  /prettier-plugin-pkg/0.17.1_prettier@2.7.1:
+    resolution: {integrity: sha512-XPRRMQR5oseJXdfK8kQDj2LCV1UjmTuDlPbbJ8C2WLaATNhdvZLhQO0+NtWnRrQTP+erLR5cVxfcwyqF+3R8SA==}
+    engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      prettier: ^2.0.0
+    dependencies:
+      prettier: 2.7.1
+    dev: true
+
+  /prettier/2.7.1:
+    resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
+
+  /typescript/4.8.2:
+    resolution: {integrity: sha512-C0I1UsrrDHo2fYI5oaCGbSejwX4ch+9Y5jTQELvovfmFkK3HHSZJB8MSJcWLmCUBzQBchCrZ9rMRV6GuNrvGtw==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
