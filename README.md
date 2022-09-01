@@ -1,3 +1,5 @@
+![Banner Image](./support/banner.jpg)
+
 # kysely-planetscale
 
 [![CI](https://github.com/depot/kysely-planetscale/actions/workflows/ci.yml/badge.svg)](https://github.com/depot/kysely-planetscale/actions/workflows/ci.yml)
