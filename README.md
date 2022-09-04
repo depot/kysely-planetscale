@@ -29,7 +29,7 @@ You can pass a new instance of `PlanetScaleDialect` as the `dialect` option when
 
 ```typescript
 import {Kysely} from 'kysely'
-import {PlanetScaleDialect} from 'keysely-planetscale'
+import {PlanetScaleDialect} from 'kysely-planetscale'
 
 const db = new Kysely<Database>({
   dialect: new PlanetScaleDialect({
@@ -44,7 +44,7 @@ const db = new Kysely<Database>({
 
 ```typescript
 import {Kysely} from 'kysely'
-import {PlanetScaleDialect} from 'keysely-planetscale'
+import {PlanetScaleDialect} from 'kysely-planetscale'
 import {fetch} from 'undici'
 
 // Connect using a DATABASE_URL, provide a fetch implementation
@@ -84,7 +84,7 @@ const db = new Kysely<Database>({
 ```typescript
 import {cast} from '@planetscale/database'
 import {Kysely} from 'kysely'
-import {PlanetScaleDialect} from 'keysely-planetscale'
+import {PlanetScaleDialect} from 'kysely-planetscale'
 import SqlString from 'sqlstring'
 
 const db = new Kysely<Database>({
