@@ -66,7 +66,7 @@ const db = new Kysely<Database>({
 
 ```typescript
 import {Kysely} from 'kysely'
-import {PlanetScaleDialect} from 'keysely-planetscale'
+import {PlanetScaleDialect} from 'kysely-planetscale'
 import SqlString from 'sqlstring'
 
 const db = new Kysely<Database>({
