@@ -7,6 +7,15 @@
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -19,7 +28,7 @@
     "serverless"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "clean": "rm -rf dist",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
@@ -41,6 +50,7 @@
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.1.0",
     "prettier-plugin-pkg": "^0.17.1",
+    "tsup": "^6.2.3",
     "typescript": "^4.8.2"
   },
   "sideEffects": false
