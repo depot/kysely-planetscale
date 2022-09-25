@@ -7,7 +7,7 @@
   "homepage": "https://github.com/depot/kysely-planetscale",
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
