@@ -119,9 +119,9 @@ class PlanetScaleConnection implements DatabaseConnection {
 
     const results = await this.#conn.execute(compiledQuery.sql, parameters)
 
-    // If an error is returned throw it.
-    if (results.error) {
-      throw results.error
+    // @planetscale/database versions older than 1.3.0 return errors directly, rather than throwing
+    if ((results as any).error) {
+      throw (results as any).error
     }
 
     return {
