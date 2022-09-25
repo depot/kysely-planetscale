@@ -118,12 +118,12 @@ class PlanetScaleConnection implements DatabaseConnection {
       : compiledQuery.parameters.map((param) => (param instanceof Date ? formatDate(param) : param))
 
     const results = await this.#conn.execute(compiledQuery.sql, parameters)
-    
+
     // If an error is returned throw it.
     if (results.error) {
       throw results.error
     }
-    
+
     return {
       rows: results.rows as O[],
       numUpdatedOrDeletedRows: results.rowsAffected == null ? undefined : BigInt(results.rowsAffected),
