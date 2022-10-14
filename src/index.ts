@@ -125,6 +125,7 @@ class PlanetScaleConnection implements DatabaseConnection {
     }
 
     return {
+      insertId: results.insertId !== null && results.insertId.toString() !== '0' ? BigInt(results.insertId) : undefined,
       rows: results.rows as O[],
       numUpdatedOrDeletedRows: results.rowsAffected == null ? undefined : BigInt(results.rowsAffected),
     }
