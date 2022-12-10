@@ -124,10 +124,16 @@ class PlanetScaleConnection implements DatabaseConnection {
       throw (results as any).error
     }
 
+    const numAffectedRows = results.rowsAffected == null ? undefined : BigInt(results.rowsAffected)
+
     return {
       insertId: results.insertId !== null && results.insertId.toString() !== '0' ? BigInt(results.insertId) : undefined,
       rows: results.rows as O[],
-      numUpdatedOrDeletedRows: results.rowsAffected == null ? undefined : BigInt(results.rowsAffected),
+      // @ts-ignore replaces `QueryResult.numUpdatedOrDeletedRows` in kysely > 0.22
+      // following https://github.com/koskimas/kysely/pull/188
+      numAffectedRows,
+      // deprecated in kysely > 0.22, keep for backward compatibility.
+      numUpdatedOrDeletedRows: numAffectedRows,
     }
   }
 
