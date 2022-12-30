@@ -139,19 +139,25 @@ class PlanetScaleConnection implements DatabaseConnection {
 
   async beginTransaction() {
     this.#transactionClient = this.#transactionClient ?? new PlanetScaleConnection(this.#config)
-    this.#transactionClient.#conn.execute('BEGIN')
+    await this.#transactionClient.#conn.execute('BEGIN')
   }
 
   async commitTransaction() {
     if (!this.#transactionClient) throw new Error('No transaction to commit')
-    this.#transactionClient.#conn.execute('COMMIT')
-    this.#transactionClient = undefined
+    try {
+      await this.#transactionClient.#conn.execute('COMMIT')
+    } finally {
+      this.#transactionClient = undefined
+    }
   }
 
   async rollbackTransaction() {
     if (!this.#transactionClient) throw new Error('No transaction to rollback')
-    this.#transactionClient.#conn.execute('ROLLBACK')
-    this.#transactionClient = undefined
+    try {
+      await this.#transactionClient.#conn.execute('ROLLBACK')
+    } finally {
+      this.#transactionClient = undefined
+    }
   }
 
   async *streamQuery<O>(_compiledQuery: CompiledQuery, _chunkSize: number): AsyncIterableIterator<QueryResult<O>> {
