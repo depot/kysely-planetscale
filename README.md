@@ -102,6 +102,24 @@ function inflate(field, value) {
 }
 ```
 
+#### Experimental: `useSharedConnection`
+
+As of version 1.3.0, `PlanetScaleDialect` supports using a shared `@planetscale/database` connection for all non-transaction queries, to improve query performance. This option is not enabled by default, but can be enabled by setting the `useSharedConnection` option to `true`. Transaction queries will always run using their own connection.
+
+This is an experimental feature, and may be removed in a future version.
+
+```typescript
+import {Kysely} from 'kysely'
+import {PlanetScaleDialect} from 'kysely-planetscale'
+
+const db = new Kysely<Database>({
+  dialect: new PlanetScaleDialect({
+    url: process.env.DATABASE_URL,
+    useSharedConnection: true,
+  }),
+})
+```
+
 ## License
 
 MIT License, see `LICENSE`.

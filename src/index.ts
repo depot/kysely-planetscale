@@ -20,7 +20,14 @@ import {
  *
  * @see https://github.com/planetscale/database-js#usage
  */
-export interface PlanetScaleDialectConfig extends Config {}
+export interface PlanetScaleDialectConfig extends Config {
+  /**
+   * Use a single `@planetscale/database` connection for all non-transaction queries.
+   *
+   * @default false
+   */
+  useSharedConnection?: boolean
+}
 
 /**
  * PlanetScale dialect that uses the [PlanetScale Serverless Driver for JavaScript][0].
@@ -99,14 +106,19 @@ class PlanetScaleDriver implements Driver {
   async destroy(): Promise<void> {}
 }
 
+const sharedConnections = new WeakMap<PlanetScaleDialectConfig, Connection>()
+
 class PlanetScaleConnection implements DatabaseConnection {
   #config: PlanetScaleDialectConfig
   #conn: Connection
   #transactionClient?: PlanetScaleConnection
 
-  constructor(config: PlanetScaleDialectConfig) {
+  constructor(config: PlanetScaleDialectConfig, isForTransaction = false) {
     this.#config = config
-    this.#conn = connect({cast: inflateDates, ...config})
+    const useSharedConnection = config.useSharedConnection && !isForTransaction
+    const sharedConnection = useSharedConnection ? sharedConnections.get(config) : undefined
+    this.#conn = sharedConnection ?? connect({cast: inflateDates, ...config})
+    if (useSharedConnection) sharedConnections.set(config, this.#conn)
   }
 
   async executeQuery<O>(compiledQuery: CompiledQuery): Promise<QueryResult<O>> {
@@ -138,7 +150,7 @@ class PlanetScaleConnection implements DatabaseConnection {
   }
 
   async beginTransaction() {
-    this.#transactionClient = this.#transactionClient ?? new PlanetScaleConnection(this.#config)
+    this.#transactionClient = this.#transactionClient ?? new PlanetScaleConnection(this.#config, true)
     await this.#transactionClient.#conn.execute('BEGIN')
   }
 
