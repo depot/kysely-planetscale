@@ -62,7 +62,7 @@ const db = new Kysely<Database>({
 
 #### Custom `format` function
 
-`PlanetScaleDialect` passes all parameters to `@planetscale/database` unmodified, expect for JavaScript Dates, which are converted to MySQL strings. If you [set a `format` function](https://github.com/planetscale/database-js#custom-query-parameter-format-function), you can override this behavior:
+`PlanetScaleDialect` passes all parameters to `@planetscale/database` unmodified, except for JavaScript Dates, which are converted to MySQL strings. If you [set a `format` function](https://github.com/planetscale/database-js#custom-query-parameter-format-function), you can override this behavior:
 
 ```typescript
 import {Kysely} from 'kysely'
