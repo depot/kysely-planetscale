@@ -8,6 +8,12 @@
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -20,7 +26,7 @@
     "serverless"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts --clean",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "clean": "rm -rf dist",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
@@ -32,18 +38,29 @@
     "kysely": "*"
   },
   "dependencies": {
-    "date-fns": "^2.29.3"
+    "date-fns": "^2.30.0"
   },
   "devDependencies": {
-    "@planetscale/database": "^1.7.0",
-    "@tsconfig/node14": "^1.0.3",
-    "@types/node": "^18.11.13",
-    "kysely": "^0.24.2",
-    "prettier": "^2.8.1",
-    "prettier-plugin-organize-imports": "^3.2.1",
-    "prettier-plugin-pkg": "^0.17.1",
-    "tsup": "^6.5.0",
-    "typescript": "^4.9.4"
+    "@planetscale/database": "^1.10.0",
+    "@tsconfig/node14": "^14.1.0",
+    "@types/node": "^20.4.5",
+    "kysely": "^0.26.1",
+    "prettier": "^3.0.0",
+    "prettier-plugin-organize-imports": "^3.2.3",
+    "prettier-plugin-pkg": "^0.18.0",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "prettier": {
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": false,
+    "plugins": [
+      "prettier-plugin-organize-imports",
+      "prettier-plugin-pkg"
+    ]
+  }
 }
