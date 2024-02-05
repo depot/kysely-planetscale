@@ -11,8 +11,8 @@ dependencies:
 
 devDependencies:
   '@planetscale/database':
-    specifier: ^1.10.0
-    version: 1.10.0
+    specifier: ^1.14.0
+    version: 1.14.0
   '@tsconfig/node14':
     specifier: ^14.1.0
     version: 14.1.0
@@ -20,8 +20,8 @@ devDependencies:
     specifier: ^20.4.5
     version: 20.4.5
   kysely:
-    specifier: ^0.26.1
-    version: 0.26.1
+    specifier: ^0.27.2
+    version: 0.27.2
   prettier:
     specifier: ^3.0.0
     version: 3.0.0
@@ -300,8 +300,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@planetscale/database@1.10.0:
-    resolution: {integrity: sha512-XMfNRjIPgGTga6g1YpGr7E21CcnHZcHZdyhRUIiZ/AlpD+ts65UF2B3wKjcu7MKMynmmcOGs6R9kAT6D1OTlZQ==}
+  /@planetscale/database@1.14.0:
+    resolution: {integrity: sha512-7BB+iH6EH4YJuDeVeEbxpo60BFz3wIXJNXCmBGl40eC4HStRMGZ1COxKfiuPcINWwwrJhAhI9AEI97AOZYT7JQ==}
     engines: {node: '>=16'}
     dev: true
 
@@ -602,8 +602,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /kysely@0.26.1:
-    resolution: {integrity: sha512-FVRomkdZofBu3O8SiwAOXrwbhPZZr8mBN5ZeUWyprH29jzvy6Inzqbd0IMmGxpd4rcOCL9HyyBNWBa8FBqDAdg==}
+  /kysely@0.27.2:
+    resolution: {integrity: sha512-DmRvEfiR/NLpgsTbSxma2ldekhsdcd65+MNiKXyd/qj7w7X5e3cLkXxcj+MypsRDjPhHQ/CD5u3Eq1sBYzX0bw==}
     engines: {node: '>=14.0.0'}
     dev: true
 
