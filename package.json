@@ -41,7 +41,7 @@
     "date-fns": "^2.30.0"
   },
   "devDependencies": {
-    "@planetscale/database": "^1.14.0",
+    "@planetscale/database": "^1.15.0",
     "@tsconfig/node14": "^14.1.0",
     "@types/node": "^20.4.5",
     "kysely": "^0.27.2",
