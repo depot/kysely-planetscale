@@ -41,10 +41,10 @@
     "date-fns": "^2.30.0"
   },
   "devDependencies": {
-    "@planetscale/database": "^1.10.0",
+    "@planetscale/database": "^1.15.0",
     "@tsconfig/node14": "^14.1.0",
     "@types/node": "^20.4.5",
-    "kysely": "^0.26.1",
+    "kysely": "^0.27.2",
     "prettier": "^3.0.0",
     "prettier-plugin-organize-imports": "^3.2.3",
     "prettier-plugin-pkg": "^0.18.0",
