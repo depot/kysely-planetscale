@@ -1,4 +1,4 @@
-import {cast, Config, connect, Connection, Field} from '@planetscale/database'
+import {Client, Config, Connection, Field, cast} from '@planetscale/database'
 import {parseJSON} from 'date-fns'
 import {
   CompiledQuery,
@@ -71,7 +71,7 @@ export class PlanetScaleDialect implements Dialect {
     return new MysqlQueryCompiler()
   }
 
-  createIntrospector(db: Kysely<any>): DatabaseIntrospector {
+  createIntrospector(db: Kysely<unknown>): DatabaseIntrospector {
     return new MysqlIntrospector(db)
   }
 }
@@ -110,15 +110,24 @@ const sharedConnections = new WeakMap<PlanetScaleDialectConfig, Connection>()
 
 class PlanetScaleConnection implements DatabaseConnection {
   #config: PlanetScaleDialectConfig
-  #conn: Connection
+  #client: Client
   #transactionClient?: PlanetScaleConnection
+
+  get #conn(): Connection {
+    if (this.#transactionClient) return this.#transactionClient.#conn
+    if (this.#useSharedConnection) return sharedConnections.get(this.#config) as Connection
+    return this.#client.connection()
+  }
+
+  get #useSharedConnection(): boolean {
+    return Boolean(this.#config.useSharedConnection && !this.#transactionClient)
+  }
 
   constructor(config: PlanetScaleDialectConfig, isForTransaction = false) {
     this.#config = config
     const useSharedConnection = config.useSharedConnection && !isForTransaction
-    const sharedConnection = useSharedConnection ? sharedConnections.get(config) : undefined
-    this.#conn = sharedConnection ?? connect({cast: inflateDates, ...config})
-    if (useSharedConnection) sharedConnections.set(config, this.#conn)
+    this.#client = new Client({cast: inflateDates, ...config})
+    if (useSharedConnection) sharedConnections.set(config, this.#client.connection())
   }
 
   async executeQuery<O>(compiledQuery: CompiledQuery): Promise<QueryResult<O>> {
