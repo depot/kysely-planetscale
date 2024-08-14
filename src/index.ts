@@ -77,16 +77,16 @@ export class PlanetScaleDialect implements Dialect {
 }
 
 class PlanetScaleDriver implements Driver {
-  #config: PlanetScaleDialectConfig
+  #client: Client
 
   constructor(config: PlanetScaleDialectConfig) {
-    this.#config = config
+    this.#client = new Client({cast: inflateDates, ...config})
   }
 
   async init(): Promise<void> {}
 
   async acquireConnection(): Promise<DatabaseConnection> {
-    return new PlanetScaleConnection(this.#config)
+    return new PlanetScaleConnection(this.#client)
   }
 
   async beginTransaction(conn: PlanetScaleConnection): Promise<void> {
@@ -109,36 +109,35 @@ class PlanetScaleDriver implements Driver {
 const sharedConnections = new WeakMap<PlanetScaleDialectConfig, Connection>()
 
 class PlanetScaleConnection implements DatabaseConnection {
-  #config: PlanetScaleDialectConfig
   #client: Client
-  #transactionClient?: PlanetScaleConnection
+  #transactionConn?: Connection
+  #useSharedConnection: boolean
 
-  get #conn(): Connection {
-    if (this.#transactionClient) return this.#transactionClient.#conn
-    if (this.#useSharedConnection) return sharedConnections.get(this.#config) as Connection
-    return this.#client.connection()
+  get #config(): Config {
+    return this.#client.config
   }
 
-  get #useSharedConnection(): boolean {
-    return Boolean(this.#config.useSharedConnection && !this.#transactionClient)
-  }
-
-  constructor(config: PlanetScaleDialectConfig, isForTransaction = false) {
-    this.#config = config
-    const useSharedConnection = config.useSharedConnection && !isForTransaction
-    this.#client = new Client({cast: inflateDates, ...config})
-    if (useSharedConnection) sharedConnections.set(config, this.#client.connection())
+  constructor(client: Client, useSharedConnection = false, isForTransaction = false) {
+    this.#client = client
+    this.#useSharedConnection = useSharedConnection && !isForTransaction
+    if (this.#useSharedConnection) sharedConnections.set(this.#config, this.#client.connection())
   }
 
   async executeQuery<O>(compiledQuery: CompiledQuery): Promise<QueryResult<O>> {
-    if (this.#transactionClient) return this.#transactionClient.executeQuery(compiledQuery)
+    if (this.#transactionConn) return this.execute(compiledQuery, this.#transactionConn)
 
+    return this.#useSharedConnection
+      ? this.execute(compiledQuery, sharedConnections.get(this.#config) || this.#client)
+      : this.execute(compiledQuery, this.#client)
+  }
+
+  private async execute<O>(compiledQuery: CompiledQuery, conn: Pick<Connection, 'execute'>): Promise<QueryResult<O>> {
     // If no custom formatter is provided, format dates as DB date strings
     const parameters = this.#config.format
       ? compiledQuery.parameters
       : compiledQuery.parameters.map((param) => (param instanceof Date ? formatDate(param) : param))
 
-    const results = await this.#conn.execute(compiledQuery.sql, parameters)
+    const results = await conn.execute(compiledQuery.sql, parameters)
 
     // @planetscale/database versions older than 1.3.0 return errors directly, rather than throwing
     if ((results as any).error) {
@@ -159,25 +158,25 @@ class PlanetScaleConnection implements DatabaseConnection {
   }
 
   async beginTransaction() {
-    this.#transactionClient = this.#transactionClient ?? new PlanetScaleConnection(this.#config, true)
-    await this.#transactionClient.#conn.execute('BEGIN')
+    this.#transactionConn = this.#transactionConn ?? this.#client.connection()
+    await this.#transactionConn.execute('BEGIN')
   }
 
   async commitTransaction() {
-    if (!this.#transactionClient) throw new Error('No transaction to commit')
+    if (!this.#transactionConn) throw new Error('No transaction to commit')
     try {
-      await this.#transactionClient.#conn.execute('COMMIT')
+      await this.#transactionConn.execute('COMMIT')
     } finally {
-      this.#transactionClient = undefined
+      this.#transactionConn = undefined
     }
   }
 
   async rollbackTransaction() {
-    if (!this.#transactionClient) throw new Error('No transaction to rollback')
+    if (!this.#transactionConn) throw new Error('No transaction to rollback')
     try {
-      await this.#transactionClient.#conn.execute('ROLLBACK')
+      await this.#transactionConn.execute('ROLLBACK')
     } finally {
-      this.#transactionClient = undefined
+      this.#transactionConn = undefined
     }
   }
 
