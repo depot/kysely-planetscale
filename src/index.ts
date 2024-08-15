@@ -120,7 +120,9 @@ class PlanetScaleConnection implements DatabaseConnection {
   constructor(client: Client, useSharedConnection = false, isForTransaction = false) {
     this.#client = client
     this.#useSharedConnection = useSharedConnection && !isForTransaction
-    if (this.#useSharedConnection) sharedConnections.set(this.#config, sharedConnections.get(this.#config) ?? this.#client.connection())
+    if (this.#useSharedConnection) {
+      sharedConnections.set(this.#config, sharedConnections.get(this.#config) ?? this.#client.connection())
+    }
   }
 
   async executeQuery<O>(compiledQuery: CompiledQuery): Promise<QueryResult<O>> {
