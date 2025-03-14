@@ -12,6 +12,7 @@ import {
   MysqlQueryCompiler,
   QueryCompiler,
   QueryResult,
+  TransactionSettings,
 } from 'kysely'
 
 /**
@@ -89,8 +90,8 @@ class PlanetScaleDriver implements Driver {
     return new PlanetScaleConnection(this.#client)
   }
 
-  async beginTransaction(conn: PlanetScaleConnection): Promise<void> {
-    return await conn.beginTransaction()
+  async beginTransaction(conn: PlanetScaleConnection, settings: TransactionSettings): Promise<void> {
+    return await conn.beginTransaction(settings)
   }
 
   async commitTransaction(conn: PlanetScaleConnection): Promise<void> {
@@ -159,8 +160,11 @@ class PlanetScaleConnection implements DatabaseConnection {
     }
   }
 
-  async beginTransaction() {
+  async beginTransaction(settings: TransactionSettings) {
     this.#transactionConn = this.#transactionConn ?? this.#client.connection()
+    if (settings.isolationLevel) {
+      await this.#transactionConn.execute(`SET TRANSACTION ISOLATION LEVEL ${settings.isolationLevel}`)
+    }
     await this.#transactionConn.execute('BEGIN')
   }
 
