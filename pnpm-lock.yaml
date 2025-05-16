@@ -22,8 +22,8 @@ importers:
         specifier: ^20.4.5
         version: 20.4.5
       kysely:
-        specifier: ^0.27.4
-        version: 0.27.4
+        specifier: ^0.28.2
+        version: 0.28.2
       prettier:
         specifier: ^3.3.3
         version: 3.3.3
@@ -503,9 +503,9 @@ packages:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
     engines: {node: '>=10'}
 
-  kysely@0.27.4:
-    resolution: {integrity: sha512-dyNKv2KRvYOQPLCAOCjjQuCk4YFd33BvGdf/o5bC7FiW+BB6snA81Zt+2wT9QDFzKqxKa5rrOmvlK/anehCcgA==}
-    engines: {node: '>=14.0.0'}
+  kysely@0.28.2:
+    resolution: {integrity: sha512-4YAVLoF0Sf0UTqlhgQMFU9iQECdah7n+13ANkiuVfRvlK+uI0Etbgd7bVP36dKlG+NXWbhGua8vnGt+sdhvT7A==}
+    engines: {node: '>=18.0.0'}
 
   lilconfig@3.1.2:
     resolution: {integrity: sha512-eop+wDAvpItUys0FWkHIKeC9ybYrTGbU41U5K7+bttZZeohvnY7M9dZ5kB21GNWiFT2q1OoPTvncPCgSOVO5ow==}
@@ -1146,7 +1146,7 @@ snapshots:
 
   joycon@3.1.1: {}
 
-  kysely@0.27.4: {}
+  kysely@0.28.2: {}
 
   lilconfig@3.1.2: {}
 
