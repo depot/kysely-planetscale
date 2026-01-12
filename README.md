@@ -6,7 +6,9 @@
 [![npm](https://img.shields.io/npm/v/kysely-planetscale.svg)](https://www.npmjs.com/package/kysely-planetscale)
 ![Powered by TypeScript](https://img.shields.io/badge/powered%20by-typescript-blue.svg)
 
-A [Kysely](https://github.com/koskimas/kysely) dialect for [PlanetScale](https://planetscale.com/), using the [PlanetScale serverless driver for JavaScript](https://planetscale.com/blog/introducing-the-planetscale-serverless-driver-for-javascript).
+A [Kysely](https://github.com/koskimas/kysely) dialect for [PlanetScale](https://planetscale.com/) **MySQL**, using the [PlanetScale serverless driver for JavaScript](https://planetscale.com/blog/introducing-the-planetscale-serverless-driver-for-javascript).
+
+> **Using PlanetScale Postgres?** This package is specifically for PlanetScale's MySQL-compatible database (Vitess). If you're using PlanetScale Postgres, you don't need this package — use Kysely's built-in `PostgresDialect` with the standard `pg` driver instead. See the [PlanetScale Postgres with Kysely](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-kysely) documentation for setup instructions.
 
 ## Installation
 
